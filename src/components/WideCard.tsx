@@ -15,14 +15,6 @@ export default function WideCard(props: WideCardProps) {
   );
 }
 
-type WideCardProps = {
-  id: number;
-  name: string;
-  air_date: string;
-  episode: string;
-  url: string;
-}
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: GlobalStyles.Color.Secondary,
@@ -61,3 +53,11 @@ const styles = StyleSheet.create({
     fontWeight: GlobalStyles.FontWeight.Bold,
   }
 });
+
+type WideCardProps = {
+  id: number;
+  name: string;
+  air_date: string;
+  episode: string;
+  url: string;
+}
