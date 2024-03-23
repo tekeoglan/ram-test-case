@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet } from 'react-native'
-import { GlobalStyles } from '../constants/styles'
+import { GlobalStyles } from '../../constants/styles'
 
-export default function Empty() {
+export function Empty() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>There is nothing to see</Text>

@@ -1,4 +1,1 @@
-export { default as WideCard } from './WideCard';
-export { default as MessageModal } from './MessageModal';
-export { default as Empty } from './Empty';
-export { default as PaginatedList } from './PaginatedList'
+export { Header } from './Header'

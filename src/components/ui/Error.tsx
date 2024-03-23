@@ -1,7 +1,7 @@
-import MessageModal from "../MessageModal"
+import { MessageModal } from "../../components/modal"
 
-export default function Error({ error }: { error: string }) {
+export function Error({ error }: { error: string }) {
   return (
-    <MessageModal message={error} />
+    <MessageModal message={error} visible onClose={() => { }} />
   )
 }

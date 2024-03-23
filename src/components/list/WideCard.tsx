@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { GlobalStyles } from '../constants/styles';
+import { GlobalStyles } from '../../constants/styles';
 
-export default function WideCard(props: WideCardProps) {
+export function WideCard(props: WideCardProps) {
   return (
     <View key={props.episode} style={styles.container}>
       <View style={styles.innerLeftContainer}>

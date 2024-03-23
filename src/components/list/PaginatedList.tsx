@@ -1,16 +1,20 @@
 import { FlatList, StyleSheet, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Empty } from '../components';
-import { Loading } from '../components/ui';
-import { GlobalStyles } from '../constants/styles';
+import { Empty } from './Empty';
+import { Loading } from '../ui';
+import { GlobalStyles } from '../../constants/styles';
 import { useEffect, useState } from 'react';
 
-export default function PaginatedList({ header, data, shape, pageSize, isLoading, loadMore }: PaginatedListProps) {
+export function PaginatedList({ header, data, shape, pageSize, isLoading, loadMore, resetBuff, onEmtptyBuff }: PaginatedListProps) {
   const [rendered, setRendered] = useState<any>([]);
 
   useEffect(() => {
     if (!data || data.length == 0) {
       return
+    }
+
+    if (resetBuff) {
+      setRendered([]);
+      onEmtptyBuff();
     }
 
     let batchSize = rendered.length + pageSize;
@@ -22,19 +26,18 @@ export default function PaginatedList({ header, data, shape, pageSize, isLoading
   }, [data])
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={data}
-        renderItem={({ item }) => shape({ ...item })}
-        ListHeaderComponent={<Text style={styles.headerText}>{header}</Text>}
-        ListHeaderComponentStyle={styles.header}
-        ListEmptyComponent={<Empty />}
-        ListFooterComponent={isLoading ? <Loading /> : null}
-        onEndReached={!isLoading ? loadMore : null}
-        onEndReachedThreshold={0.5}
-      >
-      </FlatList>
-    </SafeAreaView>
+    <FlatList
+      style={styles.container}
+      data={data}
+      renderItem={({ item }) => shape({ ...item })}
+      ListHeaderComponent={<Text style={styles.headerText}>{header}</Text>}
+      ListHeaderComponentStyle={styles.header}
+      ListEmptyComponent={<Empty />}
+      ListFooterComponent={isLoading ? <Loading /> : null}
+      onEndReached={!isLoading ? loadMore : null}
+      onEndReachedThreshold={0.5}
+    >
+    </FlatList>
   );
 }
 
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.Color.BackGround,
   },
   header: {
-    backgroundColor: GlobalStyles.Color.BackGround,
+    backgroundColor: GlobalStyles.Color.Secondary,
   },
   headerText: {
     textAlign: 'center',
@@ -60,5 +63,7 @@ type PaginatedListProps = {
   shape: (props: any) => React.JSX.Element
   pageSize: number
   isLoading: boolean
+  resetBuff: boolean
+  onEmtptyBuff: () => void
   loadMore: () => void
 }
